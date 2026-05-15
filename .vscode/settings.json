@@ -1,0 +1,8 @@
+{
+  "emmet.includeLanguages": {
+    "razor": "html"
+  },
+  "tailwindCSS.includeLanguages": {
+    "razor": "html"
+  }
+}

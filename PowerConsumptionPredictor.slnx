@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="PowerConsumptionPredictor.BusinessLogic/PowerConsumptionPredictor.BusinessLogic.csproj" />
+  <Project Path="PowerConsumptionPredictor.WebApp/PowerConsumptionPredictor.WebApp.csproj" />
+</Solution>
