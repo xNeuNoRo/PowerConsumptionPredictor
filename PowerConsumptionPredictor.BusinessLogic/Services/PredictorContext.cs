@@ -32,6 +32,22 @@ public class PredictorContext : IPredictorContext
     /// <exception cref="InvalidOperationException">Se lanza cuando no se encuentra una estrategia para el modo seleccionado</exception>
     public BasePredictionResponseDto ExecutePrediction(PredictionRequestDto request)
     {
+        // Validamos que el historial tenga exactamente 12 meses
+        if (request.History == null || request.History.Count != 12)
+        {
+            throw new ArgumentException(
+                "El sistema requiere exactamente 12 registros historicos para operar."
+            );
+        }
+
+        // Validamos que no haya consumos negativos en el historial
+        if (request.History.Any(h => h.ConsumptionKwh < 0))
+        {
+            throw new ArgumentException(
+                "El sistema no permite procesar consumos electricos negativos."
+            );
+        }
+
         var currentMode = _modePersistenceService.GetCurrentMode();
 
         var strategy = _strategies.FirstOrDefault(s => s.Mode == currentMode);

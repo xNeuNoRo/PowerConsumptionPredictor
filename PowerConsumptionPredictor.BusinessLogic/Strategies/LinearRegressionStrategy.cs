@@ -12,6 +12,10 @@ public class LinearRegressionStrategy : IPredictionStrategy
 
     public BasePredictionResponseDto Calculate(PredictionRequestDto request)
     {
+        // P.Denfesiva, prefiero validar nuevamente aqui tambien por si acaso, 
+        // ya que es buena practica por si otro dev hiciera un desastre y llamara a esta 
+        // estrategia directamente sin pasar por el contexto o algo por el estilo.
+        // --------------------------------------------------------------
         // Validamos que tengamos al menos 2 meses de datos para trazar una regresion lineal
         if (request.History == null || request.History.Count < 2)
         {
