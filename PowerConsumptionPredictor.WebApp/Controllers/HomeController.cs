@@ -1,24 +1,71 @@
-using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
-using PowerConsumptionPredictor.WebApp.Models;
+using PowerConsumptionPredictor.BusinessLogic.DTOs;
+using PowerConsumptionPredictor.BusinessLogic.DTOs.Responses.Base;
+using PowerConsumptionPredictor.BusinessLogic.Interfaces;
+using PowerConsumptionPredictor.WebApp.Mappers;
+using PowerConsumptionPredictor.WebApp.ViewModels.Inputs;
 
 namespace PowerConsumptionPredictor.WebApp.Controllers;
 
 public class HomeController : Controller
 {
+    private readonly IPredictorContext _predictorContext;
+
+    public HomeController(IPredictorContext predictorContext)
+    {
+        _predictorContext = predictorContext;
+    }
+
+    [HttpGet]
     public IActionResult Index()
     {
-        return View();
+        // Generamos un modelo nuevo que ya viene con los 12 meses inicializados en vacio
+        var model = new HomeViewModel();
+        return View(model);
     }
 
-    public IActionResult Privacy()
+    [HttpPost]
+    public IActionResult Index(HomeViewModel model)
     {
-        return View();
-    }
+        if (!ModelState.IsValid)
+        {
+            return View(model);
+        }
 
-    [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-    public IActionResult Error()
-    {
-        return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        try
+        {
+            // Mapeamos los datos del viewmodel al dto de la req
+            var requestDto = new PredictionRequestDto
+            {
+                History = model
+                    .History.Select(h => new MonthlyConsumptionDto
+                    {
+                        Date = h.Date!.Value,
+                        ConsumptionKwh = h.ConsumptionKwh!.Value,
+                    })
+                    .ToList(),
+            };
+
+            // Ejecutamos la logica de negocio y obtenemos el resultado en su formato DTO
+            BasePredictionResponseDto response = _predictorContext.ExecutePrediction(requestDto);
+
+            // Mapeamos el resultado del DTO al formato que entiende la vista (el ViewModel)
+            model.Result = response.ToViewModel();
+        }
+        catch (ArgumentException ex)
+        {
+            // Agregamos el error esperado de validacion al ModelState para que se muestre en la vista
+            ModelState.AddModelError(string.Empty, ex.Message);
+        }
+        catch (Exception)
+        {
+            // En caso de error inesperado, agregamos un mensaje generico al ModelState
+            ModelState.AddModelError(
+                string.Empty,
+                "Ocurrio un error inesperado al procesar el calculo de consumo."
+            );
+        }
+
+        return View(model);
     }
 }
