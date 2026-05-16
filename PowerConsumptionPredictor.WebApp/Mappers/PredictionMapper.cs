@@ -1,7 +1,7 @@
 using PowerConsumptionPredictor.BusinessLogic.DTOs.Responses;
 using PowerConsumptionPredictor.BusinessLogic.DTOs.Responses.Base;
-using PowerConsumptionPredictor.WebApp.ViewModels.Results;
-using PowerConsumptionPredictor.WebApp.ViewModels.Results.Base;
+using PowerConsumptionPredictor.WebApp.Models.Results;
+using PowerConsumptionPredictor.WebApp.Models.Results.Base;
 
 namespace PowerConsumptionPredictor.WebApp.Mappers;
 
