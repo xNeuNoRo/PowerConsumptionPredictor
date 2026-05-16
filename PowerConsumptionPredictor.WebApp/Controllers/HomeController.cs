@@ -3,7 +3,7 @@ using PowerConsumptionPredictor.BusinessLogic.DTOs;
 using PowerConsumptionPredictor.BusinessLogic.DTOs.Responses.Base;
 using PowerConsumptionPredictor.BusinessLogic.Interfaces;
 using PowerConsumptionPredictor.WebApp.Mappers;
-using PowerConsumptionPredictor.WebApp.ViewModels.Inputs;
+using PowerConsumptionPredictor.WebApp.Models.Inputs;
 
 namespace PowerConsumptionPredictor.WebApp.Controllers;
 
