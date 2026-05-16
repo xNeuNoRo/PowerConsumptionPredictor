@@ -25,7 +25,7 @@
                             <div>
                                 <label asp-for="History[i].Date"
                                        class="block mb-1 text-xs font-semibold text-gray-600">Fecha</label>
-                                <input asp-for="History[i].Date"
+                                <input asp-for="History[i].Date" type="date"
                                        class="w-full p-2 text-sm transition-colors border border-gray-300 rounded-md shadow-sm outline-none focus:border-blue-500 focus:ring-blue-500" />
                                 <span asp-validation-for="History[i].Date" class="block mt-1 text-xs text-red-500"></span>
                             </div>

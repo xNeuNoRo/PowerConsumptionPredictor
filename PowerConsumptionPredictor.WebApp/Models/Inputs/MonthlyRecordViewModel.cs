@@ -9,6 +9,6 @@ public class MonthlyRecordViewModel
     public DateTime? Date { get; set; }
 
     [Required(ErrorMessage = "El consumo es obligatorio.")]
-    [Range(0, double.MaxValue, ErrorMessage = "El consumo no puede ser negativo.")]
+    [Range(0.01, double.MaxValue, ErrorMessage = "El consumo debe ser un valor positivo.")]
     public double? ConsumptionKwh { get; set; }
 }
