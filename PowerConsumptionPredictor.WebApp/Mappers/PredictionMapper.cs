@@ -1,5 +1,6 @@
 using PowerConsumptionPredictor.BusinessLogic.DTOs.Responses;
 using PowerConsumptionPredictor.BusinessLogic.DTOs.Responses.Base;
+using PowerConsumptionPredictor.WebApp.Helpers;
 using PowerConsumptionPredictor.WebApp.Models.Results;
 using PowerConsumptionPredictor.WebApp.Models.Results.Base;
 
@@ -9,24 +10,26 @@ public static class PredictionMapper
 {
     public static BaseResultViewModel ToViewModel(this BasePredictionResponseDto response)
     {
+        var calculationModeName = response.CalculationModeUsed.GetDisplayName();
+
         return response switch
         {
             SmaPredictionResponseDto sma => new SmaResultViewModel
             {
-                CalculationModeUsed = sma.CalculationModeUsed,
+                CalculationModeUsed = calculationModeName,
                 InterpretationMessage = sma.InterpretationMessage,
                 PredictedConsumption = sma.PredictedConsumption,
             },
             LinearRegressionPredictionResponseDto lr => new LinearRegressionResultViewModel
             {
-                CalculationModeUsed = lr.CalculationModeUsed,
+                CalculationModeUsed = calculationModeName,
                 InterpretationMessage = lr.InterpretationMessage,
                 PredictedConsumption = lr.PredictedConsumption,
                 Slope = lr.Slope,
             },
             PercentageVariationPredictionResponseDto pv => new PercentageVariationResultViewModel
             {
-                CalculationModeUsed = pv.CalculationModeUsed,
+                CalculationModeUsed = calculationModeName,
                 InterpretationMessage = pv.InterpretationMessage,
                 AveragePercentageVariation = pv.AveragePercentageVariation,
                 MonthlyVariations = pv
@@ -40,7 +43,7 @@ public static class PredictionMapper
             },
             TrendDetectionPredictionResponseDto td => new TrendDetectionResultViewModel
             {
-                CalculationModeUsed = td.CalculationModeUsed,
+                CalculationModeUsed = calculationModeName,
                 InterpretationMessage = td.InterpretationMessage,
                 Increases = td.Increases,
                 Decreases = td.Decreases,
