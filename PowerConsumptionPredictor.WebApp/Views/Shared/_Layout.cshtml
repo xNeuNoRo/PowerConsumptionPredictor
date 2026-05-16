@@ -1,50 +1,91 @@
 ﻿<!DOCTYPE html>
-<html lang="en">
+<html lang="es">
+
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - PowerConsumptionPredictor.WebApp</title>
-    <script type="importmap"></script>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/PowerConsumptionPredictor.WebApp.styles.css" asp-append-version="true" />
+    <title>@ViewData["Title"] - Predictor de Consumo</title>
+    <link rel="stylesheet" href="~/css/app.css" asp-append-version="true" />
 </head>
-<body>
+
+<body class="flex flex-col min-h-screen font-sans text-gray-800 bg-gray-50">
+
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">PowerConsumptionPredictor.WebApp</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
-                    </ul>
+        <nav class="mb-8 bg-white border-b border-gray-200 shadow-sm">
+            <div class="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
+                <div class="flex justify-between h-16">
+                    <div class="flex">
+                        <div class="flex items-center shrink-0">
+                            <a asp-controller="Home" asp-action="Index"
+                               class="text-2xl font-bold tracking-tight text-blue-600">
+                                Predictor Mod
+                            </a>
+                        </div>
+
+                        <div class="hidden sm:ml-8 sm:flex sm:space-x-8">
+                            <a asp-controller="Home" asp-action="Index"
+                               class="inline-flex items-center px-1 pt-1 text-sm font-medium text-gray-600 transition-colors border-b-2 border-transparent hover:border-blue-500 hover:text-blue-600">
+                                Home
+                            </a>
+                            <a asp-controller="Mode" asp-action="Index"
+                               class="inline-flex items-center px-1 pt-1 text-sm font-medium text-gray-600 transition-colors border-b-2 border-transparent hover:border-blue-500 hover:text-blue-600">
+                                Modos
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="flex items-center -mr-2 sm:hidden">
+                        <button type="button"
+                                class="inline-flex items-center justify-center p-2 text-gray-400 rounded-md hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-blue-500"
+                                aria-controls="mobile-menu" aria-expanded="false">
+                            <span class="sr-only">Abrir menú principal</span>
+                            <svg class="block w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none"
+                                 viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                      d="M4 6h16M4 12h16M4 18h16" />
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            @* Menu mobile (oculto por default) *@
+            <div class="hidden sm:hidden" id="mobile-menu">
+                <div class="pt-2 pb-3 space-y-1">
+                    <a asp-controller="Home" asp-action="Index"
+                       class="block py-2 pl-3 pr-4 text-base font-medium text-gray-600 border-l-4 border-transparent hover:bg-gray-50 hover:border-blue-500 hover:text-blue-600">Home</a>
+                    <a asp-controller="Mode" asp-action="Index"
+                       class="block py-2 pl-3 pr-4 text-base font-medium text-gray-600 border-l-4 border-transparent hover:bg-gray-50 hover:border-blue-500 hover:text-blue-600">Modos</a>
                 </div>
             </div>
         </nav>
     </header>
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
-    </div>
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2026 - PowerConsumptionPredictor.WebApp - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+    <main role="main" class="w-full px-4 pb-12 mx-auto grow max-w-7xl sm:px-6 lg:px-8">
+        @RenderBody()
+    </main>
+
+    <footer class="py-6 mt-auto bg-white border-t border-gray-200">
+        <div class="flex items-center justify-center px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
+            <p class="text-sm text-gray-500">
+                &copy; @DateTime.Now.Year - Predictor de Consumo Electrico - ITLA - Programacion III Prof. Leonardo
+                Enrique Tavarez Betances
+            </p>
         </div>
     </footer>
+
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
+
+    @* Scripts *@
     @await RenderSectionAsync("Scripts", required: false)
+
+    <script>
+        // Toggle sencillo para el menu mobile
+        document.querySelector('button[aria-controls="mobile-menu"]').addEventListener('click', function () {
+        var menu = document.getElementById('mobile-menu');
+        menu.classList.toggle('hidden');
+        });
+    </script>
 </body>
+
 </html>
