@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace PowerConsumptionPredictor.WebApp.ViewModels.Inputs;
+namespace PowerConsumptionPredictor.WebApp.Models.Inputs;
 
 public class MonthlyRecordViewModel
 {

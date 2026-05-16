@@ -1,7 +1,7 @@
 using System.ComponentModel.DataAnnotations;
 using PowerConsumptionPredictor.BusinessLogic.Enums;
 
-namespace PowerConsumptionPredictor.WebApp.ViewModels.Inputs;
+namespace PowerConsumptionPredictor.WebApp.Models.Inputs;
 
 public class ModeSelectionViewModel
 {

@@ -1,6 +1,6 @@
 using PowerConsumptionPredictor.BusinessLogic.Enums;
 
-namespace PowerConsumptionPredictor.WebApp.ViewModels.Results.Base;
+namespace PowerConsumptionPredictor.WebApp.Models.Results.Base;
 
 public abstract class BaseResultViewModel
 {

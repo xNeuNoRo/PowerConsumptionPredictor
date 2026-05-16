@@ -1,4 +1,4 @@
-namespace PowerConsumptionPredictor.WebApp.ViewModels.Results;
+namespace PowerConsumptionPredictor.WebApp.Models.Results;
 
 public class MonthlyVariationItemViewModel
 {

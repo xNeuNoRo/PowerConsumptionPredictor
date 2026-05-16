@@ -1,7 +1,7 @@
 using System.ComponentModel.DataAnnotations;
-using PowerConsumptionPredictor.WebApp.ViewModels.Results.Base;
+using PowerConsumptionPredictor.WebApp.Models.Results.Base;
 
-namespace PowerConsumptionPredictor.WebApp.ViewModels.Inputs;
+namespace PowerConsumptionPredictor.WebApp.Models.Inputs;
 
 public class HomeViewModel
 {

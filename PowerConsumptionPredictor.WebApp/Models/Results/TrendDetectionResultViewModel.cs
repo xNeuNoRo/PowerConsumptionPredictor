@@ -1,6 +1,6 @@
-using PowerConsumptionPredictor.WebApp.ViewModels.Results.Base;
+using PowerConsumptionPredictor.WebApp.Models.Results.Base;
 
-namespace PowerConsumptionPredictor.WebApp.ViewModels.Results;
+namespace PowerConsumptionPredictor.WebApp.Models.Results;
 
 public class TrendDetectionResultViewModel : BaseResultViewModel
 {
