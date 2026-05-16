@@ -1,0 +1,34 @@
+@model SmaResultViewModel
+
+<div
+    class="p-6 border border-l-4 border-blue-600 rounded-r-lg shadow-sm bg-blue-50 border-y-blue-100 border-r-blue-100">
+    <div class="flex items-center pb-3 mb-5 border-b border-blue-200">
+        <svg class="w-6 h-6 mr-2 text-blue-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+             stroke-width="2" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round"
+                  d="M3.75 3v11.25A2.25 2.25 0 006 16.5h2.25M3.75 3h-1.5m1.5 0h16.5m0 0h1.5m-1.5 0v11.25A2.25 2.25 0 0118 16.5h-2.25m-7.5 0h7.5m-7.5 0l-1 3m8.5-3l1 3m0 0l.5 1.5m-.5-1.5h-9.5m0 0l-.5 1.5m.75-9l3-3 2.148 2.148A12.061 12.061 0 0116.5 7.605" />
+        </svg>
+        <h3 class="text-xl font-bold text-gray-800">
+            Resultado: <span class="text-blue-700">@Model.CalculationModeUsed</span>
+        </h3>
+    </div>
+
+    <div
+        class="flex flex-col p-5 mb-5 bg-white border border-gray-100 rounded-md shadow-sm sm:flex-row sm:items-center sm:justify-between">
+        <span class="mb-2 font-medium text-gray-600 sm:mb-0">Consumo predicho del siguiente mes:</span>
+        <span class="text-3xl font-black text-blue-600">@Model.PredictedConsumption.ToString("F2") <span
+            class="text-lg font-bold text-gray-500">kWh</span></span>
+        </div>
+
+        <div class="flex items-start p-4 text-sm text-gray-700 border border-blue-100 rounded-md bg-white/60">
+            <svg class="h-5 w-5 text-blue-500 mr-2 mt-0.5 shrink-0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
+                 fill="currentColor">
+                <path fill-rule="evenodd"
+                      d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a.75.75 0 000 1.5h.253a.25.25 0 01.244.304l-.459 2.066A1.75 1.75 0 0010.747 15H11a.75.75 0 000-1.5h-.253a.25.25 0 01-.244-.304l.459-2.066A1.75 1.75 0 009.253 9H9z"
+                      clip-rule="evenodd" />
+            </svg>
+            <p>
+                <strong class="font-semibold text-gray-900">Análisis:</strong> @Model.InterpretationMessage
+            </p>
+        </div>
+    </div>

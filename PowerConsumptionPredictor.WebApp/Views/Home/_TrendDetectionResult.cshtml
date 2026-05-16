@@ -1,0 +1,51 @@
+@model TrendDetectionResultViewModel
+
+<div
+    class="p-6 border border-l-4 rounded-r-lg shadow-sm bg-amber-50 border-amber-500 border-y-amber-100 border-r-amber-100">
+    <div class="flex items-center pb-3 mb-5 border-b border-amber-200">
+        <svg class="w-6 h-6 mr-2 text-amber-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+             stroke-width="2" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round"
+                  d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 013 19.875v-6.75zM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V8.625zM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V4.125z" />
+        </svg>
+        <h3 class="text-xl font-bold text-gray-800">
+            Resultado: <span class="text-amber-700">@Model.CalculationModeUsed</span>
+        </h3>
+    </div>
+
+    <div class="grid grid-cols-1 gap-4 mb-5 sm:grid-cols-3">
+        <div class="p-4 text-center bg-white border border-red-100 rounded-md shadow-sm">
+            <span class="block mb-1 text-sm font-medium text-gray-500">Aumentos</span>
+            <span class="text-4xl font-black text-red-500">@Model.Increases</span>
+        </div>
+
+        <div class="p-4 text-center bg-white border border-green-100 rounded-md shadow-sm">
+            <span class="block mb-1 text-sm font-medium text-gray-500">Disminuciones</span>
+            <span class="text-4xl font-black text-green-500">@Model.Decreases</span>
+        </div>
+
+        <div class="p-4 text-center bg-white border border-gray-200 rounded-md shadow-sm">
+            <span class="block mb-1 text-sm font-medium text-gray-500">Estables</span>
+            <span class="text-4xl font-black text-gray-500">@Model.StableMonths</span>
+        </div>
+    </div>
+
+    <div
+        class="flex flex-col p-5 mb-5 bg-white border rounded-md shadow-sm sm:flex-row sm:items-center sm:justify-between border-amber-100">
+        <span class="mb-2 font-medium text-gray-600 sm:mb-0">Dirección de la Tendencia:</span>
+        <span
+        class="px-3 py-1 text-xl font-bold tracking-wide uppercase rounded text-amber-700 bg-amber-100">@Model.GeneralTrend</span>
+    </div>
+
+    <div class="flex items-start p-4 text-sm text-gray-700 border rounded-md bg-white/60 border-amber-100">
+        <svg class="h-5 w-5 text-amber-500 mr-2 mt-0.5 flex-shrink-0" xmlns="http://www.w3.org/2000/svg"
+             viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd"
+                  d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a.75.75 0 000 1.5h.253a.25.25 0 01.244.304l-.459 2.066A1.75 1.75 0 0010.747 15H11a.75.75 0 000-1.5h-.253a.25.25 0 01-.244-.304l.459-2.066A1.75 1.75 0 009.253 9H9z"
+                  clip-rule="evenodd" />
+        </svg>
+        <p>
+            <strong class="font-semibold text-gray-900">Análisis:</strong> @Model.InterpretationMessage
+        </p>
+    </div>
+</div>
