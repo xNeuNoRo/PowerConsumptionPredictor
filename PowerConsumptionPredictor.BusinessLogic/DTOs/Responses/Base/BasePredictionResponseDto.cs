@@ -1,11 +1,14 @@
+using PowerConsumptionPredictor.BusinessLogic.Enums;
+
 namespace PowerConsumptionPredictor.BusinessLogic.DTOs.Responses.Base;
 
 public abstract class BasePredictionResponseDto
 {
     /// <summary>
     /// Indica el modo de calculo que se utilizo para generar la prediccion
+    /// Por default, se asigna el modo de SMA.
     /// </summary>
-    public string CalculationModeUsed { get; set; } = string.Empty;
+    public PredictionMode CalculationModeUsed { get; set; } = PredictionMode.SimpleMovingAverage;
 
     /// <summary>
     /// Mensaje que interpreta el resultado de la prediccion, 
