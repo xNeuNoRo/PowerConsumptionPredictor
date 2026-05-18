@@ -1,7 +1,12 @@
+using PowerConsumptionPredictor.BusinessLogic;
+
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+// Agregar los controladores con vistas
 builder.Services.AddControllersWithViews();
+
+// Agregamos toda la capa de logica de negocio al container de .NET
+builder.Services.AddBusinessLogic();
 
 var app = builder.Build();
 
@@ -9,7 +14,6 @@ var app = builder.Build();
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
 
@@ -25,5 +29,5 @@ app.MapControllerRoute(
     pattern: "{controller=Home}/{action=Index}/{id?}")
     .WithStaticAssets();
 
-
-app.Run();
+// Ejecutamos la app
+await app.RunAsync();

@@ -1,0 +1,85 @@
+@model PercentageVariationResultViewModel
+
+<div
+    class="p-6 border border-l-4 border-teal-600 rounded-r-lg shadow-sm bg-teal-50 border-y-teal-100 border-r-teal-100">
+    <div class="flex items-center pb-3 mb-5 border-b border-teal-200">
+        <h3 class="text-xl font-bold text-gray-800">
+            Resultado: <span class="text-teal-700">@Model.CalculationModeUsed</span>
+        </h3>
+    </div>
+
+    <div
+        class="flex flex-col p-5 mb-6 bg-white border border-gray-100 rounded-md shadow-sm sm:flex-row sm:items-center sm:justify-between">
+        <span class="mb-2 font-medium text-gray-600 sm:mb-0">Variación Promedio Mensual:</span>
+        <div class="flex items-center">
+            <span
+                class="text-3xl font-black @(Model.AveragePercentageVariation > 0 ? "text-red-600" : Model.AveragePercentageVariation < 0 ? "text-green-600" : "text-gray-600")">
+                @(Model.AveragePercentageVariation > 0 ? "+" : "")@Model.AveragePercentageVariation.ToString("F2")<span
+                class="text-xl">%</span>
+            </span>
+        </div>
+    </div>
+
+    <div class="mb-6 overflow-hidden border border-teal-200 rounded-lg shadow-sm">
+        <table class="min-w-full text-sm text-left divide-y divide-teal-200">
+            <thead class="bg-teal-100/50">
+                <tr>
+                    <th scope="col" class="px-4 py-3 font-semibold text-teal-800">Mes</th>
+                    <th scope="col" class="px-4 py-3 font-semibold text-teal-800">Estado</th>
+                    <th scope="col" class="px-4 py-3 font-semibold text-right text-teal-800">Variación (%)</th>
+                </tr>
+            </thead>
+            <tbody class="bg-white divide-y divide-teal-100">
+                @foreach (var item in Model.MonthlyVariations)
+                {
+                    <tr class="transition-colors hover:bg-teal-50/50">
+                        <td class="px-4 py-2 font-medium text-gray-700">Mes @item.MonthNumber</td>
+                        <td class="px-4 py-2">
+                            @if (item.VariationValue > 0)
+                            {
+                                <span
+                                    class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-red-100 text-red-800">
+                                    Aumento
+                                </span>
+                            }
+                            else if (item.VariationValue < 0)
+                            {
+                                <span
+                                    class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-green-100 text-green-800">
+                                    Disminución
+                                </span>
+                            }
+                            else if (item.VariationValue == 0)
+                            {
+                                <span
+                                    class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-gray-100 text-gray-800">
+                                    Estable
+                                </span>
+                            }
+                            else
+                            {
+                                <span class="italic text-gray-400">@item.VariationText</span>
+                            }
+                        </td>
+                        <td
+                            class="px-4 py-2 text-right font-mono font-medium @(item.VariationValue > 0 ? "text-red-600" : item.VariationValue < 0 ? "text-green-600" : "text-gray-500")">
+                            @(item.VariationValue.HasValue ? item.VariationValue.Value.ToString("F2") + "%" : "-")
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+    <div class="flex items-start p-4 text-sm text-gray-700 border border-teal-100 rounded-md bg-white/60">
+        <svg class="h-5 w-5 text-teal-500 mr-2 mt-0.5 shrink-0" xmlns="http://www.w3.org/2000/svg"
+             viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd"
+                  d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a.75.75 0 000 1.5h.253a.25.25 0 01.244.304l-.459 2.066A1.75 1.75 0 0010.747 15H11a.75.75 0 000-1.5h-.253a.25.25 0 01-.244-.304l.459-2.066A1.75 1.75 0 009.253 9H9z"
+                  clip-rule="evenodd" />
+        </svg>
+        <p>
+            <strong class="font-semibold text-gray-900">Análisis:</strong> @Model.InterpretationMessage
+        </p>
+    </div>
+</div>

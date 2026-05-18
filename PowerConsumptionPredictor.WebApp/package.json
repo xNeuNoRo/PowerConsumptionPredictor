@@ -3,6 +3,10 @@
   "module": "index.ts",
   "type": "module",
   "private": true,
+  "scripts": {
+    "css:build": "bunx @tailwindcss/cli -i ./Styles/app.css -o ./wwwroot/css/app.css",
+    "css:watch": "bunx @tailwindcss/cli -i ./Styles/app.css -o ./wwwroot/css/app.css --watch"
+  },
   "devDependencies": {
     "@tailwindcss/cli": "^4.3.0",
     "@types/bun": "latest",

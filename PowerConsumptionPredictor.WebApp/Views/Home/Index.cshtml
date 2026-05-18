@@ -1,8 +1,77 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+﻿@model HomeViewModel
+@{
+    ViewData["Title"] = "Registro de Consumo";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="max-w-5xl mx-auto">
+    <div class="p-6 mb-8 bg-white border border-gray-200 rounded-lg shadow-md md:p-8">
+        <h2 class="mb-2 text-2xl font-bold text-gray-800">Registro de Consumo Electrico</h2>
+        <p class="pb-4 mb-6 text-sm text-gray-500 border-b border-gray-100">
+            Ingresa los 12 registros historicos de consumo eléctrico.
+        </p>
+
+        <div asp-validation-summary="ModelOnly"
+             class="p-4 mb-6 text-sm font-medium text-red-700 border border-red-200 rounded-md bg-red-50"></div>
+
+        <form asp-controller="Home" asp-action="Index" method="post">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-x-8 gap-y-6">
+
+                @for (int i = 0; i < Model.History.Count; i++)
+                {
+                    <div class="p-4 border border-gray-200 rounded-md shadow-sm bg-gray-50">
+                        <h4 class="mb-3 text-sm font-bold text-gray-700">Mes @(i + 1)</h4>
+
+                        <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                            <div>
+                                <label asp-for="History[i].Date"
+                                       class="block mb-1 text-xs font-semibold text-gray-600">Fecha</label>
+                                <input asp-for="History[i].Date" type="date"
+                                       class="w-full p-2 text-sm transition-colors border border-gray-300 rounded-md shadow-sm outline-none focus:border-blue-500 focus:ring-blue-500" />
+                                <span asp-validation-for="History[i].Date" class="block mt-1 text-xs text-red-500"></span>
+                            </div>
+
+                            <div>
+                                <label asp-for="History[i].ConsumptionKwh"
+                                       class="block mb-1 text-xs font-semibold text-gray-600">Valor (kWh)</label>
+                                <input asp-for="History[i].ConsumptionKwh" type="number" step="any"
+                                       class="w-full p-2 text-sm transition-colors border border-gray-300 rounded-md shadow-sm outline-none focus:border-blue-500 focus:ring-blue-500" />
+                                <span asp-validation-for="History[i].ConsumptionKwh"
+                                      class="block mt-1 text-xs text-red-500"></span>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+
+            <div class="flex justify-center mt-8 lg:justify-start">
+                <button type="button" onclick="generateTestData()"
+                        class="w-full px-4 py-3 mb-4 font-medium text-blue-600 transition-colors border border-blue-600 rounded-md hover:cursor-pointer hover:bg-blue-50 sm:w-auto sm:mb-0 sm:mr-4">
+                    Generar Datos de Prueba
+                </button>
+
+                <button type="submit"
+                        class="w-full px-8 py-3 font-medium text-white transition-all bg-blue-600 rounded-md shadow-md hover:bg-blue-700 sm:w-auto hover:shadow-lg hover:-translate-y-0.5 duration-200 hover:cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
+                    Calcular Predicción
+                </button>
+            </div>
+        </form>
+    </div>
+
+    @* Seccion de resultado con vistas parciales, solo se muestra si hay un resultado disponible en el modelo *@
+    @if (Model.Result != null)
+    {
+        <div id="resultado-section" class="mt-8 scroll-mt-8">
+            <partial name="@Model.Result.PartialViewName" model="Model.Result" />
+        </div>
+
+        <script>
+                document.addEventListener("DOMContentLoaded", function () {
+                    document.getElementById('resultado-section').scrollIntoView({ behavior: 'smooth' });
+                });
+        </script>
+    }
 </div>
+
+@section Scripts {
+    <script src="~/js/home-test.js" asp-append-version="true"></script>
+}
