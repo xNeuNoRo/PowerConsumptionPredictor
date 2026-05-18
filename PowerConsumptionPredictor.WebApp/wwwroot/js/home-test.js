@@ -26,5 +26,5 @@ function generateTestData() {
   }
 }
 
-// Exponemos la func al objeto window para que el atrib 'onclick' del HTML lo encuentre
+// Exponemos la func al objeto global para que el atrib 'onclick' del HTML lo encuentre
 globalThis.generateTestData = generateTestData;
